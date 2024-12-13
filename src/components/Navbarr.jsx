@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Navbar() {
+export default function Navbarr() {
     return (
         <>
             <div className="text-[#111517] container mx-auto shadow-[0px_5px_7px_-4px_rgba(0,0,0,0.75)] font-['Nunito_Sans'] flex justify-between navbar bg-base-100 px-20">
