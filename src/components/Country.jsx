@@ -3,11 +3,10 @@ import { useParams } from "react-router-dom";
 
 export default function Country() {
   const { name } = useParams();
-  console.log(name);
-  
+
   const [country, setCountry] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchCountry = async () => {
       try {
@@ -15,7 +14,6 @@ export default function Country() {
         const response = await fetch(url);
         const data = await response.json();
         const selectedCountry = data.find((country) => country.name.common == name);
-console.log("selectedCountry: ", selectedCountry);
 
         setCountry({
           name: selectedCountry.name.common,
@@ -23,6 +21,13 @@ console.log("selectedCountry: ", selectedCountry);
           region: selectedCountry.region,
           capital: selectedCountry.capital ? selectedCountry.capital[0] : "Unknown",
           flag: selectedCountry.flags.svg,
+          official: selectedCountry.name.official,
+          subregion: selectedCountry.subregion,
+          languages: Object.values(selectedCountry.languages).join(", "),
+          currencies: Object.values(selectedCountry.currencies)
+          .map(currency => currency.name)
+          .join(", "),
+          topLevelDomain: selectedCountry.tld,
         });
       } catch (error) {
         console.error("Error fetching country: ", error);
@@ -44,18 +49,25 @@ console.log("selectedCountry: ", selectedCountry);
         </div>
       ) : (
         country && (
-          <div className="flex flex-col items-center">
-            <img src={country.flag} alt={`${country.name} flag`} className="w-64 h-40 object-cover mb-6" />
-            <h1 className="text-3xl font-bold mb-4">{country.name}</h1>
-            <p>
-              <b>Population:</b> {country.population.toLocaleString()}
-            </p>
-            <p>
-              <b>Region:</b> {country.region}
-            </p>
-            <p>
-              <b>Capital:</b> {country.capital}
-            </p>
+          <div className="flex items-center shadow-xl mt-52 gap-36">
+            <img src={country.flag} alt={`${country.name} flag`} className="w-[560px] h-[401px] object-cover mb-6" />
+            <div>
+              <h1 className="text-3xl font-bold mb-4">{country.name}</h1>
+              <p>
+                <b>Population:</b> {country.population.toLocaleString()}
+              </p>
+              <p>
+                <b>Region:</b> {country.region}
+              </p>
+              <p>
+                <b>Capital:</b> {country.capital}
+              </p>
+              <p><b>Official:</b> {country.official}</p>
+              <p><b>Sub Region:</b> {country.subregion}</p>
+              <p><b>Languages:</b> {country.languages}</p>
+              <p><b>Currencies:</b> {country.currencies}</p>
+              <p><b>Top Level Domain:</b> {country.topLevelDomain}</p>
+            </div>
           </div>
         )
       )}

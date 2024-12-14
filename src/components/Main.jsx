@@ -63,7 +63,7 @@ export default function Main() {
                         <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 gap-20'>
                             {
                                 countries.map((country, index) => (
-                                    <div key={index} className='bg-white shadow-2xl rounded-lg w-full max-md:w-[264px] max-[400px]:w-56 overflow-hidden'>
+                                    <div key={index} className='shadow-2xl rounded-lg w-full max-md:w-[264px] max-[400px]:w-56 overflow-hidden'>
                                         <NavLink to={`/country/${country.name}`}><img src={country.flag} alt={`${country.name} flag`} className='w-full h-40 object-cover' /></NavLink>
                                         <div className="p-6 font-['Nunito_Sans'] space-y-2">
                                             <h2 className="text-xl font-semibold mb-4">{country.name}</h2>
